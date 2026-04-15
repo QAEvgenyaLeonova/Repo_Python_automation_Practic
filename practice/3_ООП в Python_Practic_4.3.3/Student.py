@@ -7,3 +7,28 @@ class Student:
 
     def __str__(self):
         return f'{self.name} {self.last_name} {self.age} лет, курс: {self.course}'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -6,7 +6,33 @@ class CourseGroup:
         self.classmates = classmates
 
     def __str__(self):
-        classmates = ', '.join([str(classmates) for classmates in self.classmates])
-        return f'{self.student} учится вместе с : {self.classmates}'
+        classmates_str = ', \n'.join([str(classmate) for classmate in self.classmates])
+        return f'{self.student} учится вместе с: {classmates_str}'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -19,3 +19,32 @@ class User:
 
     def getCard(self):
         return self.card
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
