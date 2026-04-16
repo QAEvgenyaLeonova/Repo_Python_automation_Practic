@@ -44,3 +44,30 @@ def test_sum_positive_nums(num1, num2, result):
     calculator = Calculator()                     
     res = calculator.sum(num1, num2)                
     assert res == result  '''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
