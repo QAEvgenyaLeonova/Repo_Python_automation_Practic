@@ -16,7 +16,7 @@ class Calculator:
 
     def div(self,a, b):
         if (b == 0):
-            raise ArithmeticError('На ноль делить нельзя')
+            raise ZeroDivisionError ('На ноль делить нельзя')
         return a / b
 
     def pow(self,a, b = 2):

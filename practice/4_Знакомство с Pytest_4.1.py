@@ -10,3 +10,9 @@
 - `-s` — вывод всего, что печатаете в `print`.
 - `--ff`, `--failed-first` — запуск первыми тех тестов, которые упали в прошлый запуск.
 - `pytest -h` — полный список команд.'''
+
+'''[pytest]
+addopts = -v -s
+python_classes = *Suites *Test
+python_files = check_*
+python_functions = assert_*'''
