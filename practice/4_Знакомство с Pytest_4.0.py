@@ -38,37 +38,45 @@ class Calculator:
 
 # 2 файл сalculator
 
+'''Почему такой способ проверок неудобен?
+
+Потому что одна ошибка (один проваленный тест) скрывает статус всех следующих проверок. Если в проекте тысяча тестов, то одна ошибка
+может заблокировать проверку остальных сотен тестов.'''
+
 from calculator import Calculator
 
 calculator = Calculator()
 
-# + -
-# - -
-# - +
-# . .
-# n 0
-
-print('start')
+#Проверка сложения положительных чисел
 res = calculator.sum(4, 5)
 assert res == 9
 
+#Проверка сложения отрицательных чисел
 res = calculator.sum(-6, -10)
 assert res == -16
 
+#Проверка сложения отрицательного и положительного чисел
 res = calculator.sum(-6, 6)
-assert res == 0
+assert  res == 0
 
+#Проверка сложения десятичных дробей
 res = calculator.sum(5.6, 4.3)
 res = round(res, 1)
-print(res)
 assert res == 9.9
 
+#Проверка сложения числа и нуля
 res = calculator.sum(10, 0)
 assert res == 10
 
+#Проверка сложения числа и нуля
 res = calculator.div(10, 2)
 assert res == 5
 
+#Проверка деления на ноль
+res = calculator.div(10, 0)
+assert res == None
+
+#Проверка нахождения среднего арифметического
 numbers = []
 res = calculator.avg(numbers)
 assert res == 0
@@ -78,31 +86,45 @@ res = calculator.avg(numbers)
 print(res)
 assert res == 5
 
-res = calculator.div(10, 0)
-assert res == None
+'''Разбор вашего примера
+У вас список: [1, 2, 3, 4, 5, 6, 7, 8, 9, 5]
 
-print('finish')
+Считаем сумму всех чисел:
+1+2+3+4+5+6+7+8+9+5=50
+
+Считаем количество чисел в списке:
+В списке 10 чисел.
+
+Делим сумму на количество:
+50÷10=5
+
+Итог: среднее арифметическое = 5.'''
 
 
 # 3 файл сalculator
+
+'''Создание теста
+В предыдущем степе мы поняли, что тестирование каждого метода класса — дело трудоемкое и долгое.
+Поэтому сейчас мы создадим более удобный вариант для проверки методов.'''
+
 import pytest
 from calculator import Calculator
 
-calculator = Calculator()            #Создание экземпляра класса, #  глобальный экземпляр
+calculator = Calculator()
 
-def test_sum_positive_nums():        #Определение тестовой функции
-    calculator = Calculator()        # локальный экземпляр внутри теста
-    res = calculator.sum(4, 5) #Вызов метода sum:
-    assert res == 9                  #Проверка результата с помощью assert
+def test_sum_positive_nums():
+    calculator = Calculator()
+    res = calculator.sum(4, 5)
+    assert res == 9
 
-def test_sum_negativ_nums():        #Определение тестовой функции
-    calculator = Calculator()        # локальный экземпляр внутри теста
-    res = calculator.sum(-6, -10)  #Вызов метода sum:
-    assert res == -16                #Проверка результата с помощью assert
+def test_sum_negative_nums():
+    calculator = Calculator()
+    res = calculator.sum(-6, -10)
+    assert res == -16
 
-def test_sum_positive_and_negativ_nums():        #Определение тестовой функции
-    calculator = Calculator()        # локальный экземпляр внутри теста
-    res = calculator.sum(-6, 6) #Вызов метода sum:
+def test_sum_positive_and_negative_nums():
+    calculator = Calculator()
+    res = calculator.sum(-6, 6)
     assert res == 0
 
 def test_sum_float_nums():
@@ -111,7 +133,7 @@ def test_sum_float_nums():
     res = round(res, 1)
     assert res == 9.9
 
-def test_sun_zero_nums():
+def test_sum_zero_nams():
     calculator = Calculator()
     res = calculator.sum(10, 0)
     assert res == 10
@@ -123,7 +145,7 @@ def test_div_positive():
 
 def test_div_by_zero():
     calculator = Calculator()
-    with pytest.raises(ZeroDivisionError):
+    with pytest.raises(ArithmeticError):
         calculator.div(10, 0)
 
 
@@ -139,7 +161,71 @@ def test_avg_positive():
     res = calculator.avg(numbers)
     assert res == 5
 
-#файл(упрощение)
+
+
+#4.Файл Декоратор и Маркеровка
+import pytest
+from calculator import Calculator
+
+calculator = Calculator()
+
+@pytest.mark.xfail #Я ожидаю, что этот тест провалится
+def test_sum_positive_nums():
+    calculator = Calculator()
+    res = calculator.sum(4, 5)
+    assert res == 9
+
+@pytest.mark.skip(reason= 'Починить тест позже')#reason="..." — почему ожидается провал (лучше для отчётов);
+def test_sum_negative_nums():
+    calculator = Calculator()
+    res = calculator.sum(-6, -10)
+    assert res == -16
+
+@pytest.mark.xfail(strict = True)#«Я точно знаю, почему этот тест должен провалиться. У меня есть причина!»
+#@pytest.mark.xfail(strict=False) «Я не уверен, почему этот тест может провалиться, но хочу проверить — вдруг не сработает?»
+def test_sum_positive_and_negative_nums():
+    calculator = Calculator()
+    res = calculator.sum(-6, 6)
+    assert res == 1
+
+def test_sum_float_nums():
+    calculator = Calculator()
+    res = calculator.sum(5.6, 4.3)
+    res = round(res, 1)
+    assert res == 9.9
+
+def test_sum_zero_nams():
+    calculator = Calculator()
+    res = calculator.sum(10, 0)
+    assert res == 10
+
+#pytest -m positive_test
+@pytest.mark.positive_test #создали собственную маркировку
+def test_div_positive():
+    calculator = Calculator()
+    res = calculator.div(10, 2)
+    assert res == 5
+
+def test_div_by_zero():
+    calculator = Calculator()
+    with pytest.raises(ArithmeticError):
+        calculator.div(10, 0)
+
+
+def test_avg_empty_list():
+    calculator = Calculator()
+    numbers = []
+    res = calculator.avg(numbers)
+    assert res == 0
+
+def test_avg_positive():
+    calculator = Calculator()
+    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 5]
+    res = calculator.avg(numbers)
+    assert res == 5
+
+
+#5 Файл (упрощение)
 
 import pytest
 from calculator import Calculator
