@@ -1,34 +1,61 @@
-'''from calculator import Calculator
+'''Почему такой способ проверок неудобен?
+
+Потому что одна ошибка (один проваленный тест) скрывает статус всех следующих проверок. Если в проекте тысяча тестов, то одна ошибка
+может заблокировать проверку остальных сотен тестов.'''
+
+from calculator import Calculator
 
 calculator = Calculator()
 
+#Проверка сложения положительных чисел
 res = calculator.sum(4, 5)
 assert res == 9
 
+#Проверка сложения отрицательных чисел
 res = calculator.sum(-6, -10)
 assert res == -16
 
+#Проверка сложения отрицательного и положительного чисел
 res = calculator.sum(-6, 6)
-assert res == 0
+assert  res == 0
 
+#Проверка сложения десятичных дробей
 res = calculator.sum(5.6, 4.3)
 res = round(res, 1)
 assert res == 9.9
 
+#Проверка сложения числа и нуля
 res = calculator.sum(10, 0)
 assert res == 10
 
+#Проверка сложения числа и нуля
 res = calculator.div(10, 2)
 assert res == 5
 
+#Проверка деления на ноль
+res = calculator.div(10, 0)
+assert res == None
+
+#Проверка нахождения среднего арифметического
 numbers = []
 res = calculator.avg(numbers)
 assert res == 0
 
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 5]
 res = calculator.avg(numbers)
+print(res)
 assert res == 5
 
-res = calculator.div(10, 0)
-assert res == None'''
+'''Разбор вашего примера
+У вас список: [1, 2, 3, 4, 5, 6, 7, 8, 9, 5]
 
+Считаем сумму всех чисел:
+1+2+3+4+5+6+7+8+9+5=50
+
+Считаем количество чисел в списке:
+В списке 10 чисел.
+
+Делим сумму на количество:
+50÷10=5
+
+Итог: среднее арифметическое = 5.'''
