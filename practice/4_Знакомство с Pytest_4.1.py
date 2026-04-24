@@ -1,6 +1,8 @@
 '''ШПОРА для запуска тестов'''
 
 ''''**Полезные команды**
+python -m pytest: «Python, посмотри вокруг, найди тесты и запусти их» — надёжно, работает почти всегда.
+pytest: «Запусти тесты» — просто, но может не сработать, если Python не видит нужные файлы.
 - `pytest` — запуск тестов.
 - `pytest -v` — запуск тестов с подробным выводом в консоль.
 - `pytest filename.py` — запуск тестов из файла.
@@ -58,7 +60,7 @@ class StringProcessor:# строка процессора
 
 
 import pytest
-from string_processor import StringProcessor
+from string_processor import StringP
 
 @pytest.mark.parametrize(
     "input_text, expected_output",

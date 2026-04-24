@@ -13,9 +13,9 @@ class StringUtils:
 
     def trim(self, string: str) -> str:
         """
-        Принимает на вход текст и удаляет пробелы в начале, если они есть
-        Пример: `trim("   skypro") -> "skypro"`
-        """
+        Принимает на вход текст и удаляет пробелы в начале,
+        если они есть
+        Пример: `trim("   skypro") -> "skypro"`"""
         whitespace = " "
         while string.startswith(whitespace):
             string = string.removeprefix(whitespace)
@@ -23,8 +23,8 @@ class StringUtils:
 
     def contains(self, string: str, symbol: str) -> bool:
         """
-        Возвращает `True`, если строка содержит искомый символ
-        и `False` - если нет
+        Возвращает `True`, если строка содержит искомый
+        символ и `False` - если нет
         Параметры:
             `string` - строка для обработки
             `symbol` - искомый символ
